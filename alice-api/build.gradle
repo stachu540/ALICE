@@ -1,0 +1,17 @@
+dependencies {
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.2"
+    
+//    compile "com.google.guava:guava:28.0-jre"
+    compile "org.apache.commons:commons-collections4:4.4"
+    
+    compile "org.litote.kmongo:kmongo-coroutine:3.10.2"
+    compile "com.uchuhimo:konf:0.13.3"
+    compile "io.jooby:jooby"
+    compile "io.jooby:jooby-handlebars"
+
+    compile "com.fasterxml.jackson.core:jackson-databind:2.9.9"
+    compile "com.fasterxml.jackson.core:jackson-annotations:2.9.9"
+    compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.9"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-guava:2.9.9"
+    compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.9"
+}

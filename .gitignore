@@ -31,3 +31,5 @@ build/
 
 ### Misc ###
 config.yml
+docs/api/
+local.properties

@@ -1,0 +1,11 @@
+group = "ai.alice.engine"
+
+dependencies {
+    compileOnly project(":alice-api")
+    compile "com.discord4j:discord4j-core:3.0.7"
+    compile "org.apache.commons:commons-lang3:3.9"
+    compile "org.apache.commons:commons-text:1.7"
+    compileOnly "com.google.auto.service:auto-service:1.0-rc6"
+    kapt "com.google.auto.service:auto-service:1.0-rc6"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.2.2"
+}
