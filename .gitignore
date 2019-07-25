@@ -30,6 +30,6 @@ build/
 .vscode/
 
 ### Misc ###
-config.yml
+*.conf
 docs/api/
 local.properties

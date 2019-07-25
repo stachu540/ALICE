@@ -2,6 +2,3 @@ rootProject.name = "A.L.I.C.E"
 
 include ":alice",
         ":alice-api"
-
-include ":engine:alice-discord-engine",
-        ":engine:alice-twitch-engine"

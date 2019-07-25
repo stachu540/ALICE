@@ -2,17 +2,24 @@ plugins {
     id "application"
 }
 
-mainClassName = "ai.alice.Root"
+mainClassName = "ai.alice.KAppKt"
 
 dependencies {
     compile project(":alice-api")
+    compile "io.jooby:jooby"
     compile "io.jooby:jooby-netty"
     compile "io.jooby:jooby-jackson"
-    compile "commons-io:commons-io:2.6"
+    compile "io.jooby:jooby-handlebars"
+
     compile "com.squareup.okhttp3:okhttp:4.0.1"
-    compile "com.github.ajalt:clikt:2.1.0"
+
     compile "ch.qos.logback:logback-classic:1.2.3"
 
-    compile project(":engine:alice-discord-engine")
-    compile project(":engine:alice-twitch-engine")
+    compile "org.litote.kmongo:kmongo:3.10.2"
+    compile "org.litote.kmongo:kmongo-coroutine:3.10.2"
+
+    compile "com.discord4j:discord4j-core:3.0.7"
+
+//    compile project(":engine:alice-discord-engine")
+//    compile project(":engine:alice-twitch-engine")
 }
