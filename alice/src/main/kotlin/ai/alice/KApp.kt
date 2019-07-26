@@ -23,10 +23,7 @@ fun main(args: Array<String>) {
         onStarting {
             runBlocking {
                 log.info("Starting A.L.I.C.E")
-                require(DiscordClient::class).let {
-                    require(CommandRegistry::class).handle(it.eventDispatcher.on(MessageCreateEvent::class.java).awaitSingle())
-                    it.login().awaitSingle()
-                }
+                require(DiscordClient::class).login().subscribe()
             }
         }
 
@@ -34,7 +31,7 @@ fun main(args: Array<String>) {
             log.info("Stopping A.L.I.C.E Instance")
             require(CoroutineClient::class).close()
             runBlocking {
-                require(DiscordClient::class).logout().awaitSingle()
+                require(DiscordClient::class).logout().subscribe()
             }
         }
     }
