@@ -27,9 +27,9 @@ class HelpCommand(private val registry: CommandRegistry) :
     override suspend fun execute(event: MessageCreateEvent, options: CommandOptions) {
         val custom = options.containOption("custom")
         val root = options.containOption("root-only")
-        val access = options.getOption("access")?.let { AccessLevel.valueOf(it.replace('-', '_').toUpperCase()) }
+        val access = options["access"]?.let { AccessLevel.valueOf(it.replace('-', '_').toUpperCase()) }
             ?: AccessLevel.EVERYONE
-        val command = options.getArgument(1)
+        val command = options[1]
 
         if (command != null) {
             if (registry.contains(command)) {

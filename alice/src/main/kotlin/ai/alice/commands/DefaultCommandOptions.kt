@@ -19,7 +19,7 @@ class DefaultCommandOptions(args: Collection<String>) : CommandOptions {
 
     override fun containOption(key: String): Boolean = options.containsKey(key)
 
-    override fun getOption(key: String): String? = options[key]
+    override operator fun get(key: String): String? = options[key]
 
-    override fun getArgument(index: Int): String? = args[index]
+    override operator fun get(index: Int): String? = args[index]
 }

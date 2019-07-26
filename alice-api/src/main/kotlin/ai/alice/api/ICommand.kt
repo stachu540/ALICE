@@ -27,14 +27,15 @@ interface CommandOptions {
     }
 
     fun option(key: String? = null): ReadOnlyProperty<Any, String?> = object : ReadOnlyProperty<Any, String?> {
-        override fun getValue(thisRef: Any, property: KProperty<*>): String? = getOption(key ?: property.name)
+        override fun getValue(thisRef: Any, property: KProperty<*>): String? = get(key ?: property.name)
     }
 
     fun argument(index: Int): ReadOnlyProperty<Any, String?> = object : ReadOnlyProperty<Any, String?> {
-        override fun getValue(thisRef: Any, property: KProperty<*>): String? = getArgument(index)
+        override fun getValue(thisRef: Any, property: KProperty<*>): String? = this@CommandOptions.get(index)
     }
 
     fun containOption(key: String): Boolean
-    fun getOption(key: String): String?
-    fun getArgument(index: Int): String?
+
+    operator fun get(key: String): String?
+    operator fun get(index: Int): String?
 }

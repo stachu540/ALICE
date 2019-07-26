@@ -16,8 +16,7 @@ class RootCommand(private val registry: CommandRegistry) : AbstractDiscordComman
     category = CommandCategory.ROOT_COMMANDS
 ) {
     override suspend fun execute(event: MessageCreateEvent, options: CommandOptions) {
-        val command = options.getArgument(1)
-        when (command) {
+        when (options[1]) {
             "commands" -> doCustomCommand(event, options)
             "system" -> doSysCommand(event, options)
             "echo" -> doEcho(event, options)
