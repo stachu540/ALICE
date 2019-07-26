@@ -12,7 +12,7 @@ import io.jooby.require
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.reactive.awaitSingle
+import kotlinx.coroutines.runBlocking
 import org.litote.kmongo.coroutine.CoroutineDatabase
 import java.awt.Color
 import java.lang.reflect.ParameterizedType
@@ -38,7 +38,7 @@ class CommandRegistry(internal val kooby: Kooby) {
     fun handle(event: MessageCreateEvent) {
         GlobalScope.launch(exception(event)) {
             val discordConf = config.getConfig("discord")
-            val mention = "<@${event.client.applicationInfo.awaitSingle().id}>"
+            val mention = event.client.selfId.map { "<@${it.asString()}>" }.get()
 
             event.message.content.ifPresent {
                 if (it.startsWith(mention) || it.startsWith(discordConf.getString("prefix"))) {
@@ -48,6 +48,12 @@ class CommandRegistry(internal val kooby: Kooby) {
                         else
                             it.substring(discordConf.getString("prefix").length)
                     }.split(' '))
+                    runBlocking {
+                        cOpt[0]?.let { o ->
+                            if (custom.contains(o.toLowerCase())) custom.get(o.toLowerCase())
+                            else discordCommands.first { it.name == o.toLowerCase() || it.alias.contains(o.toLowerCase()) }
+                        }?.execute(event, cOpt)
+                    }
                 }
             }
         }
@@ -76,11 +82,11 @@ class CommandRegistry(internal val kooby: Kooby) {
         }
     }
 
-    fun exception(event: MessageCreateEvent): CoroutineExceptionHandler = CoroutineExceptionHandler { ctx, th ->
+    fun exception(event: MessageCreateEvent): CoroutineExceptionHandler = CoroutineExceptionHandler { _, th ->
         event.message.channel.flatMap {
             it.createEmbed {
                 var cause = th.cause
-                it.setTitle(th.javaClass.simpleName)
+                it.setTitle("ERROR: ${th.javaClass.simpleName}")
                 if (th.message != null) {
                     it.setDescription(th.message!!)
                 }
@@ -93,9 +99,11 @@ class CommandRegistry(internal val kooby: Kooby) {
                 it.setColor(Color.RED)
             }
         }.subscribe()
+        th.printStackTrace()
     }
 
     fun contains(command: String): Boolean = discordCommands.any { it.name == command || it.alias.contains(command) }
+
     suspend fun get(name: String) =
         custom.get(name) ?: discordCommands.firstOrNull { it.name == name || it.alias.contains(name) }
 }

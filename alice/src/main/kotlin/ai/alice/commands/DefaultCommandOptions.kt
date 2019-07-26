@@ -9,7 +9,7 @@ class DefaultCommandOptions(args: Collection<String>) : CommandOptions {
         }
     }.toMap()
 
-    override val args: List<String> = args.filter { a -> options.keys.any { a.contains(it) } }
+    override val args: List<String> = args.filter { a -> !options.keys.any { a.contains(it) } }
 
     override fun toMap(): Map<String, String> = args.mapIndexed(::Pair).toMap()
         .mapKeys { it.key.toString() }

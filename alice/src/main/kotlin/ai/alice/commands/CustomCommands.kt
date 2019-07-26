@@ -14,8 +14,10 @@ class CustomCommands(
             registry.database.createCollection("discord_commands")
         }
 
-        return registry.database.getCollection<DiscordCustomCommand>("discord_commands")
+        return registry.database.getCollection("discord_commands")
     }
+
+    suspend fun contains(command: String) = getCollection().countDocuments(DiscordCustomCommand::name eq command) != 0L
 
     suspend fun get(command: String) = getCollection().findOne(DiscordCustomCommand::name eq command)
 }
