@@ -8,7 +8,7 @@ jobs:
     if: "!contains(toJSON(github.event.commits.*.message), '[skip-ci]')"
     strategy:
       matrix:
-        jvm: [8, 11, 12]
+        jvm: [8, 11, 14]
     steps:
     - name: Checkout
       uses: actions/checkout@v1
