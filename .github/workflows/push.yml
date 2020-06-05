@@ -5,6 +5,7 @@ on: [push]
 jobs:
   test:
     runs-on:  [ubuntu-latest]
+    if: "!contains(toJSON(github.event.commits.*.message), '[skip-ci]')"
     strategy:
       matrix:
         jvm: [8, 11, 12]
