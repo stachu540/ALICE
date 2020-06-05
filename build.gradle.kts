@@ -16,6 +16,7 @@ allprojects {
     repositories {
         jcenter()
     }
+
     tasks {
         withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
             kotlinOptions.jvmTarget = "1.8"
@@ -27,6 +28,11 @@ subprojects {
     apply(plugin = "kotlin")
     apply(plugin = "com.jfrog.bintray")
     apply(plugin = "org.ajoberstar.grgit")
+
+    java {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
 
     plugins.withId("application") {
         application.applicationName = artifactId
