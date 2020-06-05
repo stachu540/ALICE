@@ -7,7 +7,6 @@ import ai.alice.api.provider.CollectionProvider
 import ai.alice.api.provider.Provider
 import ai.alice.api.provider.provide
 import ai.alice.descriptor.ModuleDescriptor
-import com.typesafe.config.Config
 import kotlinx.coroutines.launch
 import kotlin.reflect.KClass
 import kotlin.reflect.safeCast
@@ -82,13 +81,14 @@ abstract class AbstractModuleProvider<TEngine : Engine<*, *, *>>(
     }
 
     override fun <T : Module<TEngine>> apply(type: KClass<T>) {
-        index.firstOrNull { it.isInstance(type) }?.applyIndex() ?: throw AliceModuleException("[${type.qualifiedName}] Provided type has been not found.")
+        index.firstOrNull { it.isInstance(type) }?.applyIndex()
+            ?: throw AliceModuleException("[${type.qualifiedName}] Provided type has been not found.")
     }
 
     inline fun <reified T : Module<TEngine>> apply() = apply(T::class)
 
     private fun ModuleIndex<TEngine>.applyIndex() {
-        alice.launch{
+        alice.launch {
             val ids = requiredIds.filterNot { it in names }
             if (ids.isNotEmpty()) throw AliceModuleException("[$id] Applied module needs applying modules: $ids")
             if (isApplied) throw AliceModuleException("[$id] Module is already applied.")

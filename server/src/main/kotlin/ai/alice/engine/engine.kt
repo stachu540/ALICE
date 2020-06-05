@@ -139,7 +139,8 @@ data class EngineSpec(
         }?.let {
             println(it.parameterCount)
             implementation.cast(it.newInstance(alice))
-        } ?: throw IllegalAccessException("Cannot find any constructor with root instance parameter requirements! \"${Alice::class.java.canonicalName}\"")
+        }
+            ?: throw IllegalAccessException("Cannot find any constructor with root instance parameter requirements! \"${Alice::class.java.canonicalName}\"")
 
     override fun toString(): String =
         "${id}[${implementation.canonicalName}]"

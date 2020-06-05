@@ -6,7 +6,10 @@ import com.fasterxml.jackson.databind.DeserializationContext
 import com.fasterxml.jackson.databind.JsonDeserializer
 import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
-import com.typesafe.config.*
+import com.typesafe.config.ConfigFactory
+import com.typesafe.config.ConfigParseOptions
+import com.typesafe.config.ConfigSyntax
+import com.typesafe.config.ConfigValue
 
 object ConfigObjectFormat {
     class Serializer : JsonSerializer<ConfigValue>() {

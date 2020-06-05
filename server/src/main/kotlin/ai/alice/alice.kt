@@ -13,16 +13,11 @@ import ai.alice.store.JpaConfig
 import ai.alice.store.PersistenceDataStore
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.typesafe.config.Config
-import com.typesafe.config.ConfigRenderOptions
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.hibernate.Hibernate
 import org.hibernate.jpa.HibernatePersistenceProvider
 import org.slf4j.Logger
-import javax.persistence.Persistence
-import kotlin.concurrent.thread
 import kotlin.reflect.KClass
 import kotlin.system.exitProcess
 

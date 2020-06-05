@@ -2,16 +2,14 @@ package ai.alice.api.store
 
 import ai.alice.api.AliceObject
 import ai.alice.api.provider.Provider
-import com.sun.xml.internal.bind.v2.model.core.ID
 import java.io.Serializable
-import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.MappedSuperclass
 import javax.persistence.criteria.CriteriaQuery
 import kotlin.reflect.KClass
 
 interface DataStore : AliceObject {
-    abstract fun <T : IdObject<ID>, ID : Serializable> create(type: Class<T>): DaoObject<T, ID>
+    fun <T : IdObject<ID>, ID : Serializable> create(type: Class<T>): DaoObject<T, ID>
     fun <T : IdObject<ID>, ID : Serializable> create(type: KClass<T>): DaoObject<T, ID> = create(type.java)
 }
 

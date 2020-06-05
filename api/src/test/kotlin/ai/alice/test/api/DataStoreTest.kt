@@ -11,7 +11,6 @@ import kotlinx.coroutines.test.runBlockingTest
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.specification.describe
-import org.spekframework.spek2.style.specification.xdescribe
 import kotlin.test.assertEquals
 
 @ExperimentalCoroutinesApi

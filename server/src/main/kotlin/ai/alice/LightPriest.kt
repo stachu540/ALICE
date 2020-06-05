@@ -19,7 +19,6 @@ import com.typesafe.config.ConfigValue
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import java.io.File
-import kotlin.concurrent.thread
 import kotlin.reflect.cast
 import kotlin.system.exitProcess
 

@@ -58,9 +58,7 @@ class SyntheticEngine(override val alice: Alice) : Engine<SyntheticMessage, Synt
 
 class SyntheticMessage(
     val message: String
-) {
-
-}
+)
 
 class SyntheticCommandEvent(override val raw: SyntheticMessage, override val prefix: String) :
     CommandEvent<SyntheticMessage, Unit> {

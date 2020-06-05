@@ -35,15 +35,15 @@ interface Provider<T> : ReadOnlyProperty<Any?, T> {
 
     override fun getValue(thisRef: Any?, property: KProperty<*>): T = get()
 
-    suspend fun await() : T = suspendCancellableCoroutine {
+    suspend fun await(): T = suspendCancellableCoroutine {
         try {
             it.resume(get())
-        } catch (e : NoSuchElementException) {
+        } catch (e: NoSuchElementException) {
             it.cancel(e)
         }
     }
 
-    suspend fun awaitOrNull() : T? = suspendCancellableCoroutine {
+    suspend fun awaitOrNull(): T? = suspendCancellableCoroutine {
         it.resume(getOrNull())
     }
 }
