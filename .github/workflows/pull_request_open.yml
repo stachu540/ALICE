@@ -1,0 +1,41 @@
+on:
+  pull_request_target:
+    types: [ opened ]
+jobs:
+  reviewer_assign:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: kentaro-m/auto-assign-action@v1.1.2 # assign reviewer
+        with:
+          configuration-path: ".github/pr_review.yml"
+  title_check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: amannn/action-semantic-pull-request@v3
+        if: ${{ !github.event.pull_request.pull_request.title.startsWith('deps:') || !['stachu540', 'dependabot[bot]', 'dependabot-preview[bot]', 'github-actions[bot]'].includes(github.event.pull_request.sender.login.toLowerCase()) }}
+        with:
+          types: |
+            feat
+            feature
+            fix
+            bugfix
+            deps
+            build
+            chore
+            perf
+            refactor
+          scopes: |
+            ci
+            gradle
+            api
+            engine/discord
+            engine/twitch
+            module/youtube
+            engine/*
+            module/*
+          requiredScope: true
+          subjectPatternError: |
+            Thank you for your contribiution. Unfortunate your title doesn't contain a proper title format.
+            The title must be: `<type>(<scope>): {title}`, when [`type`](https://twitch4j.github.io/docs/contributing/pull-request-guide#supported-types)
+            and [`scope`](https://twitch4j.github.io/docs/contributing/pull-request-guide#supported-scopes) **MUST** be defined in the sample title.
+            For more details about sending pull request, please refer to our [documentation](https://twitch4j.github.io/docs/contributing/pull-request-guide)

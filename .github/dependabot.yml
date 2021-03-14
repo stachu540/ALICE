@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    pull-request-branch-name:
+      separator: "/" # it will be `dependabot/gradle/<branch>/<group>-<artifact>-<version>`
+    reviewers: # Added maintainer only - of course we can remove this to auto-merge
+      - "stachu540"

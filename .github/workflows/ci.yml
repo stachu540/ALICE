@@ -1,0 +1,28 @@
+name: CI
+on: [ push, pull_request ]
+
+env:
+  CI: true
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        jvm: [ 8, 11, 15 ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: JDK${{ matrix.jvm }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: JDK${{ matrix.jvm }}-gradle-
+      - uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.jvm }}
+      - run: chmod +x ./gradlew
+      - run: ./gradlew test

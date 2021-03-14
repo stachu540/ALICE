@@ -1,0 +1,74 @@
+name: Release
+on:
+  workflow_dispatch:
+    inputs:
+      release_notes:
+        description: Release Notes
+        required: true
+
+env:
+  CI: true
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+  ORSSH_USER: ${{ secrets.ORSSH_USER }}
+  ORSSH_PASSPHRASE: ${{ secrets.ORSSH_PASSPHRASE }}
+  GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+  GPG_KEY: ${{ secrets.GPG_KEY }}
+  SLACK_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}/slack
+  DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+
+jobs:
+  test:
+    name: Release Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        jvm: [ 8, 11, 15 ]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: JDK${{ matrix.jvm }}-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: JDK${{ matrix.jvm }}-gradle-
+      - uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.jvm }}
+
+      - run: |
+          chmod +x ./gradlew
+          ./gradlew check
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: main
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: JDK8-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: JDK8-gradle-
+      - uses: actions/setup-java@v1
+        with:
+          java-version: 8
+      - uses: actions/setup-node@v1
+      - run: chmod +x ./gradlew
+      - uses: cycjimmy/semantic-release-action@v2
+        env:
+          RELEASE_NOTES: ${{ github.event.inputs.release_notes }}
+          SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
+          SONATYPE_PASSOWRD: ${{ secrets.SONATYPE_PASSOWRD }}
+          GPG_PASSPHRASSE: ${{ secrets.GPG_PASSPHRASSE }}
+          SLACK_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}/slack # we are using this execution for `semantic-release-slack-bot` https://discord.com/developers/docs/resources/webhook#execute-slackcompatible-webhook
+        with:
+          extra_plugins: |
+            gradle-semantic-release-plugin
+            @semantic-release/git
+            semantic-release-slack-bot

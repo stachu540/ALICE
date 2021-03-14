@@ -1,0 +1,13 @@
+.vscode/
+.idea/
+*.iml
+*.log
+*.jar
+*.war
+!gradle-wrapper.jar
+.java-version
+.gradle/
+build/
+._.DS_Store
+*.env*
+local.properties
