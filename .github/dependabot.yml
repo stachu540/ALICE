@@ -1,10 +1,25 @@
 version: 2
 updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "wednesday"
+    pull-request-branch-name:
+      separator: "/" # it will be `dependabot/gradle/<branch>/<group>-<artifact>-<version>`
+    reviewers:
+      - "stachu540"
+    commit-message:
+      prefix: "deps:"
+      include: "scope"
   - package-ecosystem: "gradle"
     directory: "/"
     schedule:
       interval: "daily"
     pull-request-branch-name:
       separator: "/" # it will be `dependabot/gradle/<branch>/<group>-<artifact>-<version>`
-    reviewers: # Added maintainer only - of course we can remove this to auto-merge
+    reviewers: 
       - "stachu540"
+    commit-message:
+      prefix: "deps:"
+      include: "scope"
