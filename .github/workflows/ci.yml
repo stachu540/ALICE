@@ -8,6 +8,11 @@ on:
       - ".editorconfig"
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - ".github/**"
+      - "**.md"
+      - ".gitignore"
+      - ".editorconfig"
 
 env:
   CI: true
