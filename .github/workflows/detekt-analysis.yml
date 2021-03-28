@@ -3,8 +3,18 @@ name: Scan with Detekt
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - ".github/**"
+      - "**.md"
+      - ".gitignore"
+      - ".editorconfig"
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - ".github/**"
+      - "**.md"
+      - ".gitignore"
+      - ".editorconfig"
     
 jobs:
   scan:
