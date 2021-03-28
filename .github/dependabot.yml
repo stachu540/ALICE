@@ -6,7 +6,7 @@ updates:
       interval: "weekly"
       day: "wednesday"
     pull-request-branch-name:
-      separator: "/" # it will be `dependabot/gradle/<branch>/<group>-<artifact>-<version>`
+      separator: "/"
     reviewers:
       - "stachu540"
     commit-message:
@@ -16,8 +16,8 @@ updates:
     schedule:
       interval: "daily"
     pull-request-branch-name:
-      separator: "/" # it will be `dependabot/gradle/<branch>/<group>-<artifact>-<version>`
-    reviewers: 
+      separator: "/"
+    reviewers:
       - "stachu540"
     commit-message:
       prefix: "deps:"
