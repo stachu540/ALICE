@@ -7,14 +7,14 @@ indent_size = 4
 indent_style = space
 insert_final_newline = true
 
-[*.{css,sass,scss}]
+[*.{css, sass, scss}]
 indent_size = 2
 max_line_length = off
 
-[*.{yml,yaml,js}]
+[*.{yml, yaml, js}]
 indent_size = 2
 
-[*.{gradle.kts,kt,kts}]
+[*.{gradle.kts, kt, kts}]
 indent_size = 2
 max_line_length = 160
-ij_kotlin_imports_layout=*
+ij_kotlin_imports_layout = *

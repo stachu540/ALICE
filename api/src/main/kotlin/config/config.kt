@@ -1,38 +1,26 @@
-package ai.alice.api.config
+package io.aliceplatform.api.config
 
-import ai.alice.api.AliceObject
-import ai.alice.api.Closeable
-import ai.alice.api.objects.provider.Provider
-import java.io.Serializable
+import io.aliceplatform.api.AliceObject
+import io.aliceplatform.api.objects.Provider
 
-interface Configuration : AliceObject, Closeable {
-  fun <T : Any> map(path: String, type: Class<T>): Provider<T>
-  fun <T : Any> map(type: Class<T>): Provider<T>
-  fun <N : Node> get(path: String): N
+interface ConfigurationProvider : AliceObject {
+  fun getEnvironment(env: String): Provider<String>
+  fun getProperty(path: String): Provider<Node>
 }
 
-interface Node {
-  val isPrimitive: Boolean
-  val isObject: Boolean
-  val isArray: Boolean
-  val isNull: Boolean
+annotation class ConfigPath(val value: String)
+annotation class ConfigOption(
+  val options: Array<String>,
+  val separatorRegex: String = "\\s+",
+  val description: String = "",
+  val required: Boolean = false
+)
 
-  fun <T : Any> getAs(type: Class<T>): Provider<out Any>
-}
+annotation class ConfigArgument(
+  val index: Int,
+  val count: Int = 1,
+  val description: String = "",
+  val required: Boolean = false,
+)
 
-interface ArrayNode : Node, Iterable<Node> {
-  override fun <T : Any> getAs(type: Class<T>): Provider<Collection<T>>
-}
-
-interface ObjectNode : Node, Map<String, Node> {
-  override fun <T : Any> getAs(type: Class<T>): Provider<T>
-}
-
-interface PrimitiveNode : Node, Serializable {
-  val isNumber: Boolean
-  val isBoolean: Boolean
-  val isNaN: Boolean
-  val isString: Boolean
-
-  override fun <T : Any> getAs(type: Class<T>): Provider<T>
-}
+annotation class ConfigEnvironment(val value: String = "")

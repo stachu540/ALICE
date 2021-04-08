@@ -1,37 +1,49 @@
-package ai.alice.api.engine.command
+package io.aliceplatform.api.engine.command
 
-import ai.alice.api.Consumer
-import ai.alice.api.Predicate
-import ai.alice.api.engine.Engine
-import kotlin.jvm.Throws
+import io.aliceplatform.api.AliceObject
+import io.aliceplatform.api.Predicate
+import io.aliceplatform.api.engine.Engine
 
-interface CommandProvider<TEvent, TCEvent : CommandEvent<TEvent>, TCommand : Command<TCEvent, TEvent>, TEngine : Engine<TEvent, TCEvent, TCommand, TEngine>> :
-  Consumer<TEvent> {
+interface CommandProvider<TEvent, TCEvent : CommandEvent<TEvent>, TEngine : Engine<*, TEvent, TCEvent>> : AliceObject {
   val engine: TEngine
-  fun register(command: TCommand)
-  fun unregister(command: String, aliased: Boolean = false)
+  val prefixManager: PrefixManager<TEvent>
+  val names: Set<String>
+  val commands: Set<Command<TEvent, TCEvent>>
+
+  fun register(command: Command<TEvent, TCEvent>)
+  fun unregister(name: String, aliased: Boolean = false)
+
+  fun handle(event: TEvent)
 }
 
-interface Command<TCEvent : CommandEvent<TEvent>, TEvent> {
+interface PrefixManager<TEvent> {
+  val default: String
+  fun get(event: TEvent): String
+}
+
+interface CommandEvent<out TEvent> {
+  val root: TEvent
+  val message: String
+  val command: String
+  val argv: Array<String>
+  val prefix: String
+
+  val sender: Any
+  val channel: Any
+}
+
+interface Command<TEvent, TCEvent : CommandEvent<TEvent>> {
   val name: String
-  val aliases: Array<String>
+  val alias: Array<String>
   val description: String?
-  val accessor: Predicate<TCEvent>
-  val group: Group<TCEvent, TEvent>
+  val access: Predicate<TCEvent>
+  val group: Group<TEvent, TCEvent>
 
   @Throws(Exception::class)
   fun execute(event: TCEvent)
 
-  interface Group<TCEvent : CommandEvent<TEvent>, TEvent> : Predicate<TCEvent> {
-    val order: Int
+  interface Group<TEvent, TCEvent : CommandEvent<TEvent>> : Predicate<TCEvent> {
     val name: String
     val displayName: String
   }
-}
-
-interface CommandEvent<TEvent> {
-  val raw: TEvent
-  val message: String
-  val command: String
-  val argv: Array<String>
 }

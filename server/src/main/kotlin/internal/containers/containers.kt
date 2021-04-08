@@ -1,13 +1,13 @@
-package ai.alice.internal.containers
+package io.aliceplatform.internal.containers
 
-import ai.alice.api.Consumer
-import ai.alice.api.Transformer
-import ai.alice.api.datastore.DataStore
-import ai.alice.api.engine.Engine
-import ai.alice.api.engine.EngineContainer
-import ai.alice.api.objects.ObjectContainer
-import ai.alice.api.objects.provider.Provider
-import ai.alice.internal.AliceImpl
+import io.aliceplatform.api.Consumer
+import io.aliceplatform.api.Transformer
+import io.aliceplatform.api.datastore.DataStore
+import io.aliceplatform.api.engine.Engine
+import io.aliceplatform.api.engine.EngineContainer
+import io.aliceplatform.api.objects.ObjectContainer
+import io.aliceplatform.api.objects.provider.Provider
+import io.aliceplatform.internal.AliceImpl
 
 class EngineContainerImpl(override val root: AliceImpl) : EngineContainer {
   override fun <TFactory : Engine.Factory<TConfig, *>, TConfig : Engine.Config> install(factory: TFactory, configure: TConfig.() -> Unit) {

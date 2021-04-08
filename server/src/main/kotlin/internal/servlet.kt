@@ -1,2 +1,2 @@
-package ai.alice.internal
+package io.aliceplatform.internal
 

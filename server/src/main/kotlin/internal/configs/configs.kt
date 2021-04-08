@@ -1,2 +1,2 @@
-package ai.alice.internal.configs
+package io.aliceplatform.internal.configs
 

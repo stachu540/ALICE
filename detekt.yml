@@ -1,0 +1,16 @@
+comments:
+  active: true
+  AbsentOrWrongFileLicense:
+    licenseTemplateFile: ./LICENSE
+  CommentOverPrivateFunction:
+    active: false
+  CommentOverPrivateProperty:
+    active: false
+formatting:
+  ParameterListWrapping:
+    indentSize: 0
+  MaximumLineLength:
+    maxLineLength: 160
+complexity:
+  NestedBlockDepth:
+    active: false

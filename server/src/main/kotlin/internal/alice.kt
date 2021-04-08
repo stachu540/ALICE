@@ -1,39 +1,73 @@
-package ai.alice.internal
+package io.aliceplatform.internal
 
-import ai.alice.api.Alice
-import ai.alice.api.Consumer
-import ai.alice.api.config.Configuration
-import ai.alice.api.datastore.DataStore
-import ai.alice.api.engine.EngineContainer
-import ai.alice.api.objects.ObjectFactory
-import ai.alice.internal.containers.DataStoreImpl
-import ai.alice.internal.containers.EngineContainerImpl
-import ai.alice.internal.objects.ObjectFactoryImpl
+import io.aliceplatform.api.Alice
+import io.aliceplatform.api.Consumer
+import io.aliceplatform.api.Version
+import io.aliceplatform.api.config.ConfigurationProvider
+import io.aliceplatform.api.datastore.DataStoreFactory
+import io.aliceplatform.api.engine.EngineProvider
+import io.aliceplatform.api.modules.ModuleProvider
+import io.aliceplatform.api.objects.ObjectFactory
+import io.aliceplatform.api.web.WebComponentFactory
+import io.aliceplatform.internal.objects.ObjectFactoryImpl
 import java.io.File
 import java.util.*
 
 class AliceImpl(
-  builder: AliceInstanceBuilder
+  configFile: File
 ) : Alice {
-  override val objects: ObjectFactory = ObjectFactoryImpl()
-  override val configurations: Configuration = builder.configuration.build(this)
-  override val engines: EngineContainer = EngineContainerImpl(this)
-  override val datastore: DataStore = DataStoreImpl(this)
+  override val alice: Alice
+    get() = this
 
-  override fun configurations(configurations: Consumer<Configuration>) {
-    this.configurations.let(configurations::consume)
+  override val version: Version = Version.current()
+  override val objects: ObjectFactory
+  override val configuration: ConfigurationProvider
+  override val engines: EngineProvider
+  override val web: WebComponentFactory
+  override val modules: ModuleProvider
+  override val datastore: DataStoreFactory
+
+  init {
+    this.configuration = ConfigurationProviderImpl(this, configFile)
+    this.objects = ObjectFactoryImpl(this)
+    this.engines = EngineProviderImpl(this)
+    this.web = WebComponentFactoryImpl(this)
+    this.modules = ModuleProviderImpl(this)
+    this.datastore = DataStoreFactoryImpl(this)
+
+    postInit()
   }
 
-  override fun engines(engines: Consumer<EngineContainer>) {
-    this.engines.let(engines::consume)
+  override fun configuration(configuration: Consumer<ConfigurationProvider>) {
+    configuration.consume(this.configuration)
+  }
+
+  override fun engines(engines: Consumer<EngineProvider>) {
+    engines.consume(this.engines)
+  }
+
+  override fun web(web: Consumer<WebComponentFactory>) {
+    web.consume(this.web)
+  }
+
+  override fun modules(modules: Consumer<ModuleProvider>) {
+    modules.consume(this.modules)
+  }
+
+  override fun datastore(datastore: Consumer<DataStoreFactory>) {
+    datastore.consume(this.datastore)
   }
 
   override fun objects(objects: Consumer<ObjectFactory>) {
-    this.objects.let(objects::consume)
+    objects.consume(this.objects)
   }
 
-  override fun datastore(datastore: Consumer<DataStore>) {
-    this.datastore.let(datastore::consume)
+  override fun run() {
+    TODO("Not yet implemented")
+  }
+
+  override fun close() {
+    TODO("Not yet implemented")
   }
 }
 
@@ -51,11 +85,11 @@ class AliceInstanceBuilder private constructor(val options: AliceOptions) {
 }
 
 class AliceConfigurationBuilder private constructor(options: AliceOptions) {
-//  private val file: File
+  //  private val file: File
   private val properties = Properties()
 
-  fun add(path: String, `object`: Any) {
-    properties[path] = `object`
+  fun add(path: String, value: Any) {
+    properties[path] = value
   }
 
   fun build(alice: AliceImpl): Configuration = TODO()

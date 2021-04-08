@@ -8,8 +8,8 @@ on:
 
 env:
   CI: true
+  GITHUB_ACTOR: ${{ github.actor }}
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
   ORSSH_USER: ${{ secrets.ORSSH_USER }}
   ORSSH_PASSPHRASE: ${{ secrets.ORSSH_PASSPHRASE }}
   GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
@@ -25,50 +25,60 @@ jobs:
       matrix:
         jvm: [ 8, 11, 15 ]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
+        name: Checkout
       - uses: actions/cache@v2.1.4
+        name: Cache JDK${{ matrix.jvm }}
         with:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: JDK${{ matrix.jvm }}-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: JDK${{ matrix.jvm }}-gradle-
-      - uses: actions/setup-java@v1
+      - uses: actions/setup-java@v2
+        name: Setup JDK${{ matrix.jvm }}
         with:
           java-version: ${{ matrix.jvm }}
-
-      - run: |
-          chmod +x ./gradlew
-          ./gradlew check
+          distribution: zulu
+      - name: Final Test JDK${{ matrix.jvm }}
+        uses: eskatos/gradle-command-action@v1.3.3
+        with:
+          arguments: check
   release:
     name: Release
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2.3.4
+        name: Checkout
         with:
           ref: main
       - uses: actions/cache@v2.1.4
+        name: Cache JDK8
         with:
           path: |
             ~/.gradle/caches
             ~/.gradle/wrapper
           key: JDK8-gradle-${{ hashFiles('**/*.gradle*') }}
           restore-keys: JDK8-gradle-
-      - uses: actions/setup-java@v1
+      - uses: actions/setup-java@v2
+        name: Setup JDK8
         with:
           java-version: 8
-      - uses: actions/setup-node@v2.1.5
-      - run: chmod +x ./gradlew
-      - uses: cycjimmy/semantic-release-action@v2
-        env:
-          RELEASE_NOTES: ${{ github.event.inputs.release_notes }}
-          SONATYPE_USER: ${{ secrets.SONATYPE_USER }}
-          SONATYPE_PASSOWRD: ${{ secrets.SONATYPE_PASSOWRD }}
-          GPG_PASSPHRASSE: ${{ secrets.GPG_PASSPHRASSE }}
-          SLACK_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}/slack # we are using this execution for `semantic-release-slack-bot` https://discord.com/developers/docs/resources/webhook#execute-slackcompatible-webhook
+          distribution: zulu
+      - name: Prepare Release
+        uses: release-drafter/release-drafter@v5.15.0
+        id: release
+      - name: Release v${{ steps.release.outputs.tag_name }}
+        uses: eskatos/gradle-command-action@v1.3.3
         with:
-          extra_plugins: |
-            gradle-semantic-release-plugin
-            @semantic-release/git
-            semantic-release-slack-bot
+          arguments: publish -Pversion=${{ steps.release.outputs.tag_name }}
+      - name: Publish Release Information to Discord Channel
+        uses: sarisia/actions-status-discord@v1.8.5
+        with:
+          nodetail: true
+          title: New version `${{ steps.release.outputs.tag_name }}` is ready!
+          description: |
+            \# [`v${{ steps.release.outputs.tag_name }}`](${{ steps.release.outputs.html_url }})
+            ${{ steps.release.outputs.body }}
+

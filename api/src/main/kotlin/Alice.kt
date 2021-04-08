@@ -1,18 +1,25 @@
-package ai.alice.api
+package io.aliceplatform.api
 
-import ai.alice.api.config.Configuration
-import ai.alice.api.datastore.DataStore
-import ai.alice.api.engine.EngineContainer
-import ai.alice.api.objects.ObjectFactory
+import io.aliceplatform.api.config.ConfigurationProvider
+import io.aliceplatform.api.datastore.DataStoreFactory
+import io.aliceplatform.api.engine.EngineProvider
+import io.aliceplatform.api.modules.ModuleProvider
+import io.aliceplatform.api.objects.ObjectFactory
+import io.aliceplatform.api.web.WebComponentFactory
 
-interface Alice {
-  val configurations: Configuration
-  val engines: EngineContainer
+interface Alice : AliceObjectOperator {
+  val version: Version
+  val configuration: ConfigurationProvider
+  val engines: EngineProvider
+  val web: WebComponentFactory
+  val modules: ModuleProvider
+  val datastore: DataStoreFactory
   val objects: ObjectFactory
-  val datastore: DataStore
 
-  fun configurations(configurations: Consumer<Configuration>)
-  fun engines(engines: Consumer<EngineContainer>)
+  fun configuration(configuration: Consumer<ConfigurationProvider>)
+  fun engines(engines: Consumer<EngineProvider>)
+  fun web(web: Consumer<WebComponentFactory>)
+  fun modules(modules: Consumer<ModuleProvider>)
+  fun datastore(datastore: Consumer<DataStoreFactory>)
   fun objects(objects: Consumer<ObjectFactory>)
-  fun datastore(datastore: Consumer<DataStore>)
 }

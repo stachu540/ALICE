@@ -1,32 +1,32 @@
-package ai.alice.api.engine
+package io.aliceplatform.api.engine
 
-import ai.alice.api.Alice
-import ai.alice.api.AliceInstanceObject
-import ai.alice.api.Consumer
-import ai.alice.api.engine.command.Command
-import ai.alice.api.engine.command.CommandEvent
-import ai.alice.api.engine.command.CommandProvider
-import ai.alice.api.engine.module.ModuleContainer
-import ai.alice.api.objects.NamedObjectContainer
+import io.aliceplatform.api.Alice
+import io.aliceplatform.api.AliceObjectOperator
+import io.aliceplatform.api.Consumer
+import io.aliceplatform.api.engine.command.Command
+import io.aliceplatform.api.engine.command.CommandEvent
+import io.aliceplatform.api.engine.command.CommandProvider
+import io.aliceplatform.api.objects.NamedObjectCollection
+import io.aliceplatform.api.web.OpenIdConnect
 
-interface EngineContainer : NamedObjectContainer<Engine<*, *, *, *>> {
-  fun <TFactory : Engine.Factory<TConfig, *>, TConfig : Engine.Config> install(factory: TFactory, configure: TConfig.() -> Unit)
+interface EngineProvider : NamedObjectCollection<Engine<*, *, *>>, AliceObjectOperator {
+  fun <F : Engine.Factory> install(factory: F)
 }
 
-interface Engine<TEvent, TCEvent : CommandEvent<TEvent>, TCommand : Command<TCEvent, TEvent>, TEngine : Engine<TEvent, TCEvent, TCommand, TEngine>> :
-  Consumer<TEvent>, AliceInstanceObject {
-  val modules: ModuleContainer<TEngine>
-  val commands: CommandProvider<TEvent, TCEvent, TCommand, TEngine>
+interface Engine<TRoot, TEvent, TCEvent : CommandEvent<TEvent>> {
+  val root: TRoot
+  val provider: CommandProvider<TEvent, TCEvent, Engine<TRoot, TEvent, TCEvent>>
 
-  interface Factory<TConfig : Config, TEngine : Engine<*, *, *, TEngine>> {
-    val name: String
+  fun <T : TEvent> onEvent(type: Class<T>, consumer: Consumer<T>)
+  fun registerCommand(command: Command<TEvent, TCEvent>)
+  fun unregisterCommand(name: String, aliased: Boolean = false)
 
-    fun configure(configure: TConfig.() -> Unit): TConfig
-    fun register(alice: Alice, config: TConfig): TEngine
+  interface Factory {
+    fun init(alice: Alice, config: Config): Engine<*, *, *>
   }
 
   interface Config {
     val token: String
-
+    val odic: OpenIdConnect.Config?
   }
 }
