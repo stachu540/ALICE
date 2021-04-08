@@ -1,6 +1,6 @@
 package io.aliceplatform
 
-import ai.alice.internal.AliceImpl
+import io.aliceplatform.internal.AliceImpl
 import java.io.File
 
 object Launcher {
