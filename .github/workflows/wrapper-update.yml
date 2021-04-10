@@ -1,7 +1,7 @@
 name: Gradle Wrapper Update
 on:
   schedule:
-    - cron : "0 0 * * *" # Check updates each day on 12AM UTC
+    - cron : "0 6 * * *" # Check updates each day on 6AM UTC
 
 jobs:
   gradle_update:
@@ -11,10 +11,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2.3.4
         with:
-          ref: develop
+          ref: main
+      - run: git branch deps/gradle-updates
       - name: Gradle Wrapper Check
         uses: gradle-update/update-gradle-wrapper-action@v1
         with:
           reviewers: stachu540
           labels: dependencies
-          base-branch: deps/gradle-updates
