@@ -1,17 +1,19 @@
+github_actions: ./github/workflows/**
 "@scope/api": api/src/**
 "@scope/engine": engine/src/**
 "@scope/module": module/src/**
 "@scope/plugin": plugin/src/**
 "@scope/server": server/src/**
 "@scope/build":
-  - '**/build.gradle.kts'
+  - "**/build.gradle.kts"
   - build.gradle.kts
   - settings.gradle.kts
-  - 'buildSrc/**'
-  - 'gradle/**'
+  - "buildSrc/**"
+  - "gradle/**"
 documentation:
-  - '**/*.md'
-  - '*.md'
-  - 'docs/**'
-  - '!.github/**.md'
-  
+  - "**/*.md"
+  - "*.md"
+  - "docs/**"
+  - "!.github/**.md"
+chore:
+  - ".github/*.yml"
