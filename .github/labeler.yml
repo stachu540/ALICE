@@ -1,9 +1,9 @@
-@scope/api: api/src/**
-@scope/engine: engine/src/**
-@scope/module: module/src/**
-@scope/plugin: plugin/src/**
-@scope/server: server/src/**
-@scope/build:
+"@scope/api": api/src/**
+"@scope/engine": engine/src/**
+"@scope/module": module/src/**
+"@scope/plugin": plugin/src/**
+"@scope/server": server/src/**
+"@scope/build":
   - '**/build.gradle.kts'
   - build.gradle.kts
   - settings.gradle.kts
