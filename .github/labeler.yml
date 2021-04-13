@@ -1,19 +1,19 @@
-'scope: api':
+scope:api:
   - api/**
   - !build.gradle.kts
-'scope: engine':
+scope:engine:
   - engine/**
   - !build.gradle.kts
-'scope: module':
+scope:module:
   - module/**
   - !build.gradle.kts
-'scope: plugin':
+scope:plugin:
   - plugin/**
   - !build.gradle.kts
-'scope: server':
+scope:server:
   - server/**
   - !build.gradle.kts
-'scope: build':
+scope:build:
   - '**/build.gradle.kts'
   - build.gradle.kts
   - settings.gradle.kts
