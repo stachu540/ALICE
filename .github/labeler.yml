@@ -1,7 +1,7 @@
 'scope: api':
   - api/**
   - !build.gradle.kts
-'scope: egnine':
+'scope: engine':
   - engine/**
   - !build.gradle.kts
 'scope: module':
