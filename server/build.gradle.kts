@@ -1,7 +1,7 @@
 apply<PropertiesPlugin>()
 
 dependencies {
-  api(platform("com.fasterxml.jackson:jackson-bom:2.12.2"))
+  api(platform("com.fasterxml.jackson:jackson-bom:2.12.3"))
 
   api(project(":api"))
   implementation(project(":engine:discord"))
