@@ -1,18 +1,20 @@
-apply<PropertiesPlugin>()
-
-dependencies {
-  api(platform("com.fasterxml.jackson:jackson-bom:2.12.2"))
-
-  api(project(":api"))
-  implementation(project(":engine:discord"))
-  implementation(project(":engine:twitch"))
-
-  api("com.fasterxml.jackson.core:jackson-databind")
-  api("com.fasterxml.jackson.module:jackson-module-kotlin")
-  api("com.fasterxml.jackson.datatype:jackson-datatype-jdk8")
+plugins {
+  application
 }
+
+application {
+  mainClass.set("io.aliceplatform.LauncherKt")
+}
+
+apply<PropertiesPlugin>()
 
 projectProperties {
   prefix.set("alice.platform")
-  propertiesLocation.set("META-INF/system.properties")
+  propertiesLocation.set("META-INF/alice/system.properties")
+}
+
+dependencies {
+  api(projects.api)
+  api(libs.bundles.server)
+  api(libs.bundles.jackson)
 }

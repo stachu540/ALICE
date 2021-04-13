@@ -1,8 +1,11 @@
 rootProject.name = "alice"
 
 include(
-  ":server", ":api",
+  ":api", ":server",
   ":engine:discord", ":engine:twitch",
-  ":module:youtube", ":module:alertbox",
-  ":plugin:gradle", ":plugin:maven", ":plugin:api"
+  ":modules:basics", ":modules:moderation",
+  ":plugin:api", ":plugin:maven", ":plugin:gradle"
 )
+
+enableFeaturePreview("VERSION_CATALOGS")
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")

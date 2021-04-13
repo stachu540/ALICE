@@ -1,17 +1,16 @@
 package io.aliceplatform.api.modules
 
+import io.aliceplatform.api.Alice
+import io.aliceplatform.api.AliceObject
 import io.aliceplatform.api.AliceObjectOperator
 import io.aliceplatform.api.objects.NamedObjectCollection
 
-interface ModuleProvider : NamedObjectCollection<Module<*>>, AliceObjectOperator {
-  infix fun <T> apply(module: Module<T>)
-  infix fun apply(id: String): ModuleSpec
+interface ModuleProvider : NamedObjectCollection<Module<*>>, AliceObject {
+  fun <TConfig> install(module: Module<TConfig>, configure: TConfig.() -> Unit)
 }
 
-interface ModuleSpec {
-  infix fun version(version: String)
-}
-
-interface Module<T> {
-  fun apply(target: T)
+interface Module<TConfig> {
+  val name: String
+  fun configure(configure: TConfig.() -> Unit): TConfig
+  fun apply(alice: Alice, configure: TConfig)
 }

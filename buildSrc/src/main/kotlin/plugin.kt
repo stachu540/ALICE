@@ -138,8 +138,8 @@ open class PropertiesPlugin : Plugin<Project> {
     target.extensions.create<PropertyExtension>("projectProperties", target)
     target.tasks.create<GeneratePropertiesTask>("generateProperties") {
       val processResources by target.tasks.getting(ProcessResources::class)
-      dependsOn(processResources)
-      targetResource.set(processResources.destinationDir)
+      processResources.dependsOn(this)
+      outputDirectory.set(processResources.destinationDir)
     }
   }
 }

@@ -1,0 +1,10 @@
+io.aliceplatform.api.*
+io.aliceplatform.api.config.*
+io.aliceplatform.api.datastore.*
+io.aliceplatform.api.dsl.*
+io.aliceplatform.api.engine.*
+io.aliceplatform.api.engine.command.*
+io.aliceplatform.api.event.*
+io.aliceplatform.api.modules.*
+io.aliceplatform.api.objects.*
+io.aliceplatform.api.extensions.*

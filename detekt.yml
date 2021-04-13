@@ -10,7 +10,7 @@ formatting:
   ParameterListWrapping:
     indentSize: 0
   MaximumLineLength:
-    maxLineLength: 160
+    maxLineLength: 120
 complexity:
   NestedBlockDepth:
     active: false

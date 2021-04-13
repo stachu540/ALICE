@@ -3,5 +3,6 @@ plugins {
 }
 
 dependencies {
-  implementation(project(":api"))
+  implementation(projects.api)
+  api(libs.discord)
 }

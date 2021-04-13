@@ -14,8 +14,6 @@ env:
   ORSSH_PASSPHRASE: ${{ secrets.ORSSH_PASSPHRASE }}
   GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
   GPG_KEY: ${{ secrets.GPG_KEY }}
-  SLACK_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}/slack
-  DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
 
 jobs:
   test:
@@ -81,4 +79,3 @@ jobs:
           description: |
             \# [`v${{ steps.release.outputs.tag_name }}`](${{ steps.release.outputs.html_url }})
             ${{ steps.release.outputs.body }}
-

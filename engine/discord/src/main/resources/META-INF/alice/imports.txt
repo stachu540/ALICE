@@ -1,0 +1,5 @@
+io.aliceplatform.engine.discord.*
+io.aliceplatform.engine.discord.modules.*
+io.aliceplatform.engine.discord.extensions.*
+io.aliceplatform.engine.discord.dao.*
+io.aliceplatform.engine.discord.dao.data.*

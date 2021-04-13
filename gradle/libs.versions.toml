@@ -1,0 +1,56 @@
+[versions]
+kotlin = '1.4.32'
+okhttp = '4.9.1'
+slf4j = '1.7.30'
+junit = '5.7.1'
+clikt = '3.1.0'
+logback = '1.2.3'
+jackson = '2.12.3'
+hocon = '1.4.1'
+coroutines = '1.3.8'
+jdbi = '3.19.0'
+caffeine = '2.9.0'
+discord = '3.1.5'
+
+[libraries]
+slf4j = { module = 'org.slf4j:slf4j-api', version.ref = 'slf4j' }
+
+discord = { module = 'com.discord4j:discord4j-core', version.ref = 'discord' }
+
+jdbi = { module = 'org.jdbi:jdbi3-core', version.ref = 'jdbi' }
+jdbiSqlite = { module = 'org.jdbi:jdbi3-sqlite', version.ref = 'jdbi' }
+jdbiSqlite = { module = 'org.jdbi:jdbi3-postgres', version.ref = 'jdbi' }
+jdbiJackson = { module = 'org.jdbi:jdbi3-jackson2', version.ref = 'jdbi' }
+jdbiKotlin = { module = 'org.jdbi:jdbi3-kotlin-sqlobject', version.ref = 'jdbi' }
+caffeine = { module = 'com.github.ben-manes.caffeine:caffeine', version.ref = 'caffeine' }
+
+kotlinReflect = { module = 'org.jetbrains.kotlin:kotlin-reflect', version.ref = 'kotlin' }
+kotlinStdlibJdk8 = { module = 'org.jetbrains.kotlin:kotlin-stdlib-jdk8', version.ref = 'kotlin' }
+kotlinScriptingJvm = { module = 'org.jetbrains.kotlin:kotlin-scripting-jvm', version.ref = 'kotlin' }
+kotlinScriptingCommon = { module = 'org.jetbrains.kotlin:kotlin-scripting-common', version.ref = 'kotlin' }
+kotlinScriptingJvmHost = { module = 'org.jetbrains.kotlin:kotlin-scripting-jvm-host', version.ref = 'kotlin' }
+
+jacksonJoda = { module = "com.fasterxml.jackson.datatype:jackson-datatype-jsr310" , version.ref = 'jackson' }
+jacksonKotlin = { module = "com.fasterxml.jackson.module:jackson-module-kotlin" , version.ref = 'jackson' }
+jacksonAnnotation = { module = "com.fasterxml.jackson.core:jackson-annotations" , version.ref = 'jackson' }
+jacksonDatabind = { module = "com.fasterxml.jackson.core:jackson-databind", version.ref = 'jackson' }
+jacksonYaml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml", version.ref = 'jackson' }
+jacksonProperties = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-properties", version.ref = 'jackson' }
+jacksonToml = { module = "com.fasterxml.jackson.dataformat:jackson-dataformat-toml", version.ref = 'jackson' }
+hocon = { module = "com.typesafe:config", version.ref = 'hocon' }
+
+coroutines = { module = 'org.jetbrains.kotlinx:kotlinx-coroutines-core', version.ref = 'coroutines' }
+clikt = { module = 'com.github.ajalt.clikt:clikt', version.ref = 'clikt' }
+
+logback = { module = 'ch.qos.logback:logback-classic', version.ref = 'logback' }
+
+junitJupiter = { module = 'org.junit.jupiter:junit-jupiter-api', version.ref = 'junit' }
+junitEngine = { module = 'org.junit.jupiter:junit-jupiter-engine', version.ref = 'junit' }
+
+[bundles]
+jackson = [ 'jacksonJoda', 'jacksonAnnotation', 'jacksonDatabind', 'jacksonYaml', 'jacksonProperties', 'jacksonToml', 'jacksonKotlin', 'hocon' ]
+common = [ 'slf4j', 'kotlinStdlibJdk8', 'coroutines' ]
+server = [ 'clikt', 'logback', 'kotlinScriptingCommon', 'kotlinScriptingJvm', 'kotlinScriptingJvmHost', 'kotlinReflect' ]
+test = [ 'junitJupiter', 'logback' ]
+testRuntime = [ 'junitEngine' ]
+jdbi = [ 'caffeine', 'jdbi', 'jdbiSqlite', 'jdbiSqlite', 'jdbiJackson', 'jdbiKotlin' ]

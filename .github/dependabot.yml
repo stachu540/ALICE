@@ -16,3 +16,11 @@ updates:
       separator: "/"
     reviewers:
       - "stachu540"
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    pull-request-branch-name:
+      separator: "/"
+    reviewers:
+      - "stachu540"

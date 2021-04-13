@@ -15,7 +15,7 @@ categories:
     labels:
       - docs
       - documentation
-  - title: Dependencies
+  - title: Dependency Updates
     label:
       - dependencies
 version-resolver:
@@ -33,9 +33,9 @@ version-resolver:
       - dependencies
       - bug
 prerelease: false
-exclude-labels:
-  - skip-log
 template: |
   ## What's new
 
   $CHANGES
+exclude-labels:
+  - skip-log

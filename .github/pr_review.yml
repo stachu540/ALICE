@@ -1,3 +1,2 @@
 addReviewers: true
-reviewers:
-  - stachu540
+reviewers: [ stachu540 ]

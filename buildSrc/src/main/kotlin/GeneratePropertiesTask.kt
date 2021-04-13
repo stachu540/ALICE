@@ -3,14 +3,15 @@ import java.io.FileOutputStream
 import java.util.Properties
 import org.eclipse.jgit.api.Git
 import org.gradle.api.DefaultTask
-import org.gradle.api.file.RegularFileProperty
-import org.gradle.api.tasks.OutputFile
+import org.gradle.api.file.DirectoryProperty
+import org.gradle.api.tasks.Internal
+import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 
 open class GeneratePropertiesTask : DefaultTask() {
 
-  @OutputFile
-  val targetResource: RegularFileProperty = project.objects.fileProperty()
+  @Internal
+  val outputDirectory: DirectoryProperty = project.objects.directoryProperty()
 
   @TaskAction
   fun generate() {
@@ -24,7 +25,7 @@ open class GeneratePropertiesTask : DefaultTask() {
         }
 
         val path = config.propertiesLocation.flatMap { t ->
-          targetResource.map { File(it.asFile, t).absoluteFile }
+          outputDirectory.map { File(it.asFile, t).absoluteFile }
         }.get()
 
         if (!path.exists()) {

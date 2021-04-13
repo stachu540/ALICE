@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/stachu540/ALICE/discussions
+    about: This is only place to questions, features and your projects referenced to this project (modules, engines, etc.)
+  - name: Discord Server
+    url: https://discord.gg/aliceplatform
+    about: Official Discord Server. You can provide your own creations or playing with other dudes.
