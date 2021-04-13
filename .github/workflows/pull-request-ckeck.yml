@@ -10,7 +10,7 @@ jobs:
     name: Auto-Assign
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/labeler@main
+      - uses: actions/labeler@v3.0.0
         name: Reviewer
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
