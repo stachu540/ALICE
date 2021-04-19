@@ -3,7 +3,7 @@ plugins {
 }
 
 application {
-  mainClass.set("io.aliceplatform.LauncherKt")
+  mainClassName = "io.aliceplatform.LauncherKt"
 }
 
 apply<PropertiesPlugin>()

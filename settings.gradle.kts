@@ -3,8 +3,7 @@ rootProject.name = "alice"
 include(
   ":api", ":server",
   ":engine:discord", ":engine:twitch",
-  ":modules:basics", ":modules:moderation",
-  ":plugin:api", ":plugin:maven", ":plugin:gradle"
+  ":modules:basics", ":modules:moderation"
 )
 
 enableFeaturePreview("VERSION_CATALOGS")

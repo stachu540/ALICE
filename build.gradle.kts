@@ -118,7 +118,6 @@ subprojects {
           }
         }
       }
-
     }
 
     dependencies {
@@ -129,4 +128,3 @@ subprojects {
 }
 
 apply<GitHubPlugin>()
-
