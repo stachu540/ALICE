@@ -1,5 +1,14 @@
 name: Gradle Wrapper Validate
-on: [ push ]
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+      - docs/**
+      - .github/workflows/**
+      - .gitignore
+      - .editorconfig
+      - mkdocs.yml
+      - requirements.txt
 
 jobs:
   validation:
