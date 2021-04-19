@@ -15,8 +15,8 @@ allprojects {
   apply(plugin = "org.jlleitschuh.gradle.ktlint")
 
   repositories {
+    maven("https://maven.pkg.jetbrains.space/public/p/kotlinx-html/maven") // see https://github.com/detekt/detekt/discussions/3458#discussioncomment-350337 -> https://github.com/Kotlin/kotlinx.html/issues/81#issuecomment-806925929
     mavenCentral()
-//    maven("https://jitpack.io/")
   }
 
   ktlint {
