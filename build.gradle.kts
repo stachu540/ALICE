@@ -21,6 +21,7 @@ allprojects {
 
   ktlint {
     debug.set(true)
+    ignoreFailures.set(true)
   }
 
   detekt {
