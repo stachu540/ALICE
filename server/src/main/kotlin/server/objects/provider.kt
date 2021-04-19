@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.Module
 import com.fasterxml.jackson.databind.SerializationConfig
 import com.fasterxml.jackson.databind.deser.Deserializers
 import com.fasterxml.jackson.databind.deser.ValueInstantiator
-import com.fasterxml.jackson.databind.deser.std.MapDeserializer
 import com.fasterxml.jackson.databind.deser.std.ReferenceTypeDeserializer
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer
 import com.fasterxml.jackson.databind.jsontype.TypeDeserializer
@@ -23,7 +22,6 @@ import com.fasterxml.jackson.databind.ser.std.ReferenceTypeSerializer
 import com.fasterxml.jackson.databind.type.CollectionType
 import com.fasterxml.jackson.databind.type.MapType
 import com.fasterxml.jackson.databind.type.ReferenceType
-import com.fasterxml.jackson.databind.type.SimpleType
 import com.fasterxml.jackson.databind.type.TypeBindings
 import com.fasterxml.jackson.databind.type.TypeFactory
 import com.fasterxml.jackson.databind.type.TypeModifier

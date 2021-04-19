@@ -8,11 +8,9 @@ import com.fasterxml.jackson.module.kotlin.convertValue
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import com.typesafe.config.ConfigFactory
 import io.aliceplatform.api.config.ArrayNode
-import io.aliceplatform.api.config.ConfigPath
 import io.aliceplatform.api.config.ConfigurationProvider
 import io.aliceplatform.api.config.Node
 import io.aliceplatform.api.config.ObjectNode
-import io.aliceplatform.api.config.PropertyPath
 import io.aliceplatform.api.objects.Provider
 import io.aliceplatform.server.DefaultAliceInstance
 import io.aliceplatform.server.registerAliceModules

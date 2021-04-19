@@ -75,7 +75,7 @@ interface Version : Comparable<Version> {
     @JvmStatic
     @JvmOverloads
     fun of(major: Int, minor: Int, patch: Int, release: Release? = null): Version =
-        VersionImpl(major, minor, patch, release)
+      VersionImpl(major, minor, patch, release)
 
     @JvmStatic
     fun of(version: String): Version {

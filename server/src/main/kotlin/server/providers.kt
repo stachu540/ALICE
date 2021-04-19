@@ -31,7 +31,8 @@ class EngineProviderImpl(override val alice: DefaultAliceInstance) : EngineProvi
 
   override fun <R : Engine<*, *, *>> ofType(type: Class<R>): Provider<R> =
     alice.objects.of {
-      engines.values.firstOrNull { type.isInstance(it) }?.let { type.cast(it) } ?: throw NullPointerException("No Engine have been installed in this type!")
+      engines.values.firstOrNull { type.isInstance(it) }?.let { type.cast(it) }
+        ?: throw NullPointerException("No Engine have been installed in this type!")
     }
 
   override fun <R : Any> map(transformer: Transformer<Engine<*, *, *>, R>): ObjectCollection<R> =

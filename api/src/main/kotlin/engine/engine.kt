@@ -2,9 +2,7 @@ package io.aliceplatform.api.engine
 
 import io.aliceplatform.api.Alice
 import io.aliceplatform.api.AliceObjectOperator
-import io.aliceplatform.api.Closeable
 import io.aliceplatform.api.Consumer
-import io.aliceplatform.api.Runnable
 import io.aliceplatform.api.engine.command.Command
 import io.aliceplatform.api.engine.command.CommandEvent
 import io.aliceplatform.api.engine.command.CommandProvider

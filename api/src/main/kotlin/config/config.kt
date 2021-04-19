@@ -33,6 +33,7 @@ interface ConfigurationProvider : AliceObject {
    * @return valued [String] of Environmental Variable
    */
   fun getEnvironment(env: String): Provider<String>
+
   /**
    * Getting [Node] from Local Properties
    *

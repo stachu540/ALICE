@@ -2,7 +2,6 @@ package io.aliceplatform.server.objects
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
 import com.fasterxml.jackson.databind.json.JsonMapper
-import com.fasterxml.jackson.databind.module.SimpleModule
 import io.aliceplatform.api.Supplier
 import io.aliceplatform.api.objects.IterableProvider
 import io.aliceplatform.api.objects.MapProvider

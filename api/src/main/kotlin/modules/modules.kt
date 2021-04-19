@@ -2,7 +2,6 @@ package io.aliceplatform.api.modules
 
 import io.aliceplatform.api.Alice
 import io.aliceplatform.api.AliceObject
-import io.aliceplatform.api.AliceObjectOperator
 import io.aliceplatform.api.objects.NamedObjectCollection
 
 interface ModuleProvider : NamedObjectCollection<Module<*>>, AliceObject {

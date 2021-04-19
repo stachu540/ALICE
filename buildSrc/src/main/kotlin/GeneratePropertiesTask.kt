@@ -1,11 +1,10 @@
 import java.io.File
 import java.io.FileOutputStream
-import java.util.Properties
+import java.util.*
 import org.eclipse.jgit.api.Git
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.DirectoryProperty
 import org.gradle.api.tasks.Internal
-import org.gradle.api.tasks.OutputDirectory
 import org.gradle.api.tasks.TaskAction
 
 open class GeneratePropertiesTask : DefaultTask() {

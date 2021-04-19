@@ -1,18 +1,5 @@
 package io.aliceplatform.engine.discord
 
-import discord4j.core.DiscordClient
-import discord4j.core.DiscordClientBuilder
-import discord4j.core.GatewayDiscordClient
-import discord4j.core.event.domain.message.MessageCreateEvent
-import discord4j.rest.request.RouterOptions
-import io.aliceplatform.api.Alice
-import io.aliceplatform.api.Consumer
-import io.aliceplatform.api.LateInit
-import io.aliceplatform.api.engine.Engine
-import io.aliceplatform.api.engine.command.Command
-import io.aliceplatform.api.engine.command.CommandProvider
-import java.nio.channels.NotYetConnectedException
-
 //object DiscordClient : Engine.Factory<DiscordConfig> {
 //  override val name = "discord"
 //

@@ -1,8 +1,6 @@
 package io.aliceplatform.api.event
 
 import io.aliceplatform.api.AliceObject
-import io.aliceplatform.api.Consumer
-import io.aliceplatform.api.Transformer
 
 interface EventManager : AliceObject {
   fun registerAnnotatedEvent(event: Any)

@@ -1,5 +1,5 @@
 import java.nio.charset.Charset
-import java.util.Base64
+import java.util.*
 import org.gradle.api.Project
 import org.gradle.api.internal.project.DefaultProject
 import org.gradle.api.provider.Property
@@ -47,11 +47,13 @@ val Project.signingKey: Property<String>
 
     fun decode(base64: String) = Base64.getDecoder().decode(base64.toByteArray(Charset.defaultCharset()))
       .toString(Charset.defaultCharset())
-    it.convention(when {
-      env != null -> if (env.matches(base64Regex)) decode(env) else env
-      prop != null -> if (prop.matches(base64Regex)) decode(prop) else prop
-      else -> null
-    })
+    it.convention(
+      when {
+        env != null -> if (env.matches(base64Regex)) decode(env) else env
+        prop != null -> if (prop.matches(base64Regex)) decode(prop) else prop
+        else -> null
+      }
+    )
   }
 
 val Project.githubToken: Property<String>

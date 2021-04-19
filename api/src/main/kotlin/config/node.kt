@@ -12,14 +12,17 @@ interface Node {
    * It is [ObjectNode]
    */
   val isObject: Boolean
+
   /**
    * It is [ArrayNode]
    */
   val isArray: Boolean
+
   /**
    * It is [PrimitiveNode]
    */
   val isPrimitive: Boolean
+
   /**
    * It is [NullNode]
    */
@@ -44,10 +47,12 @@ interface PrimitiveNode : Node {
    * primitive is [NumberNode]
    */
   val isNumber: Boolean
+
   /**
    * primitive is [BooleanNode]
    */
   val isBoolean: Boolean
+
   /**
    * primitive is [StringNode]
    */

@@ -60,7 +60,7 @@ open class DefaultNamedObjectCollection<T : Any> internal constructor(
     objects.ofNullable(collections.values.firstOrNull { type.isInstance(it) })
       .map { type.cast(it) }
 
-  override fun <R : Any> map(transformer: Transformer<T, R>): ObjectCollection<R>  =
+  override fun <R : Any> map(transformer: Transformer<T, R>): ObjectCollection<R> =
     DefaultObjectCollection<R>(objects).also {
       it.set(collections.values.map(transformer::transform))
     }

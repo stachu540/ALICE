@@ -35,7 +35,7 @@ jobs:
         name: Validate Wrapper
   test:
     name: Test
-    needs:  [ wrapper_validate ]
+    needs: [ wrapper_validate ]
     runs-on: ubuntu-latest
     strategy:
       matrix:
