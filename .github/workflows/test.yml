@@ -59,4 +59,4 @@ jobs:
       - name: Test JDK${{ matrix.jvm }}
         uses: eskatos/gradle-command-action@v1.3.3
         with:
-          arguments: check
+          arguments: test
