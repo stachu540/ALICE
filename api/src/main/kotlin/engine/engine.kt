@@ -2,6 +2,7 @@ package io.aliceplatform.api.engine
 
 import io.aliceplatform.api.Alice
 import io.aliceplatform.api.AliceObjectOperator
+import io.aliceplatform.api.AliceRuntimeException
 import io.aliceplatform.api.Consumer
 import io.aliceplatform.api.engine.command.Command
 import io.aliceplatform.api.engine.command.CommandEvent
@@ -37,4 +38,11 @@ interface Engine<TRoot, TEvent, TCEvent : CommandEvent<TEvent>> : AliceObjectOpe
   interface Config {
     val token: String
   }
+}
+
+open class EngineException : AliceRuntimeException {
+  constructor() : super()
+  constructor(cause: Throwable?) : super(cause)
+  constructor(message: String?) : super(message)
+  constructor(message: String?, cause: Throwable?) : super(message, cause)
 }
