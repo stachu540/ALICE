@@ -2,7 +2,7 @@ plugins {
   signing
   `maven-publish`
   kotlin("jvm") version "1.4.32"
-  id("org.jetbrains.dokka") version "1.4.30"
+  id("org.jetbrains.dokka") version "1.4.32"
   id("com.coditory.manifest") version "0.1.14"
   id("io.gitlab.arturbosch.detekt") version "1.16.0"
   id("org.jlleitschuh.gradle.ktlint") version "10.0.0"
