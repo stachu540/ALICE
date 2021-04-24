@@ -27,7 +27,6 @@ env:
 jobs:
   test:
     name: Test
-    needs: [ wrapper_validate ]
     runs-on: ubuntu-latest
     strategy:
       matrix:
