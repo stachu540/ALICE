@@ -3,6 +3,6 @@ plugins {
 }
 
 dependencies {
-  api(libs.bundles.jdbi)
+  api(libs.bundles.kmongo)
   api(libs.bundles.common)
 }

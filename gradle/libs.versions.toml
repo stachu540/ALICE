@@ -11,18 +11,15 @@ coroutines = '1.3.8'
 jdbi = '3.19.0'
 caffeine = '2.9.0'
 discord = '3.1.5'
+kmongo = '4.2.6'
 
 [libraries]
 slf4j = { module = 'org.slf4j:slf4j-api', version.ref = 'slf4j' }
 
 discord = { module = 'com.discord4j:discord4j-core', version.ref = 'discord' }
 
-jdbi = { module = 'org.jdbi:jdbi3-core', version.ref = 'jdbi' }
-jdbiSqlite = { module = 'org.jdbi:jdbi3-sqlite', version.ref = 'jdbi' }
-jdbiSqlite = { module = 'org.jdbi:jdbi3-postgres', version.ref = 'jdbi' }
-jdbiJackson = { module = 'org.jdbi:jdbi3-jackson2', version.ref = 'jdbi' }
-jdbiKotlin = { module = 'org.jdbi:jdbi3-kotlin-sqlobject', version.ref = 'jdbi' }
-caffeine = { module = 'com.github.ben-manes.caffeine:caffeine', version.ref = 'caffeine' }
+kmongo = { module = 'org.litote.kmongo:kmongo', version.ref = 'kmongo' }
+kmongoAsync = { module = 'org.litote.kmongo:kmongo-async', version.ref = 'kmongo' }
 
 kotlinReflect = { module = 'org.jetbrains.kotlin:kotlin-reflect', version.ref = 'kotlin' }
 kotlinStdlibJdk8 = { module = 'org.jetbrains.kotlin:kotlin-stdlib-jdk8', version.ref = 'kotlin' }
@@ -48,9 +45,9 @@ junitJupiter = { module = 'org.junit.jupiter:junit-jupiter-api', version.ref = '
 junitEngine = { module = 'org.junit.jupiter:junit-jupiter-engine', version.ref = 'junit' }
 
 [bundles]
+kmongo = [ 'kmongo', 'kmongoAsync' ]
 jackson = [ 'jacksonJoda', 'jacksonAnnotation', 'jacksonDatabind', 'jacksonYaml', 'jacksonProperties', 'jacksonToml', 'jacksonKotlin', 'hocon' ]
 common = [ 'slf4j', 'kotlinStdlibJdk8', 'coroutines' ]
 server = [ 'clikt', 'logback', 'kotlinScriptingCommon', 'kotlinScriptingJvm', 'kotlinScriptingJvmHost', 'kotlinReflect' ]
 test = [ 'junitJupiter', 'logback' ]
 testRuntime = [ 'junitEngine' ]
-jdbi = [ 'caffeine', 'jdbi', 'jdbiSqlite', 'jdbiSqlite', 'jdbiJackson', 'jdbiKotlin' ]

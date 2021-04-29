@@ -32,49 +32,41 @@ interface IDao<T : IdObject<ID>, ID> {
   /**
    * Getting your requested object
    */
-  @SqlUpdate
   fun get(id: ID): Provider<T>
 
   /**
    * Checking if your [query][predicate] is exist
    */
-  @SqlQuery
   fun any(predicate: Predicate<T>): BooleanProvider
 
   /**
    * Getting all of them and [filtering][predicate] it
    */
-  @SqlQuery
   fun filter(predicate: Predicate<T>): IterableProvider<T>
 
   /**
    * Get first from the [filter][predicate]
    */
-  @SqlQuery
   fun findFirst(predicate: Predicate<T>): Provider<T>
 
   /**
    * Add / Update object
    */
-  @SqlUpdate
   fun put(@BindBean target: T): BooleanProvider
 
   /**
    * Remove object by [ID]
    */
-  @SqlUpdate
   fun remove(id: ID): BooleanProvider
 
   /**
    * Remove object by [filtering][predicate]
    */
-  @SqlUpdate
   fun removeIf(predicate: Predicate<T>): NumberProvider
 
   /**
    * List all results
    */
-  @SqlQuery
   fun listAll(): IterableProvider<T>
 }
 
