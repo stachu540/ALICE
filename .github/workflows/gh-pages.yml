@@ -3,6 +3,9 @@ name: Github Pages
 on:
   push:
     branches: [ main ]
+    paths:
+      - '**.kt'
+      - '**.kts'
 
 jobs:
   deploy:

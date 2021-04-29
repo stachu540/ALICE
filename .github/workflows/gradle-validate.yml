@@ -7,8 +7,6 @@ on:
       - .github/workflows/**
       - .gitignore
       - .editorconfig
-      - mkdocs.yml
-      - requirements.txt
 
 jobs:
   validation:
