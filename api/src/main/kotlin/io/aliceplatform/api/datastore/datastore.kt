@@ -1,18 +1,19 @@
 package io.aliceplatform.api.datastore
 
+import com.fasterxml.jackson.annotation.JsonAlias
+import com.fasterxml.jackson.annotation.JsonKey
+import com.fasterxml.jackson.databind.annotation.JsonNaming
+import io.aliceplatform.api.AliceObject
 import io.aliceplatform.api.AliceObjectOperator
 import io.aliceplatform.api.LateInit
-import io.aliceplatform.api.Predicate
 import io.aliceplatform.api.objects.BooleanProvider
 import io.aliceplatform.api.objects.IterableProvider
 import io.aliceplatform.api.objects.NumberProvider
 import io.aliceplatform.api.objects.Provider
-import java.sql.Driver
-import java.sql.SQLException
-import org.jdbi.v3.sqlobject.customizer.BindBean
-import org.jdbi.v3.sqlobject.locator.UseClasspathSqlLocator
-import org.jdbi.v3.sqlobject.statement.SqlQuery
-import org.jdbi.v3.sqlobject.statement.SqlUpdate
+import java.util.*
+import org.bson.conversions.Bson
+import org.bson.types.ObjectId
+import org.litote.kmongo.Id
 
 /**
  * Data Storage Factory
@@ -21,48 +22,47 @@ import org.jdbi.v3.sqlobject.statement.SqlUpdate
  * To initialize database just use [create] to create table and use this object to start utilize your query
  */
 interface DataStoreFactory : AliceObjectOperator {
-  fun <DAO : IDao<T, ID>, T : IdObject<ID>, ID> create(dao: Class<DAO>): Provider<DAO>
+  fun <T : IdObject<T>> create(dao: Class<T>): Provider<IDao<T>>
 }
 
 /**
  * Data Access Object Interface
  */
-@UseClasspathSqlLocator
-interface IDao<T : IdObject<ID>, ID> {
+interface IDao<T : IdObject<T>> : AliceObject {
   /**
    * Getting your requested object
    */
-  fun get(id: ID): Provider<T>
+  fun get(id: Id<T>): Provider<T>
 
   /**
    * Checking if your [query][predicate] is exist
    */
-  fun any(predicate: Predicate<T>): BooleanProvider
+  fun any(predicate: Bson): BooleanProvider
 
   /**
    * Getting all of them and [filtering][predicate] it
    */
-  fun filter(predicate: Predicate<T>): IterableProvider<T>
+  fun filter(predicate: Bson): IterableProvider<T>
 
   /**
    * Get first from the [filter][predicate]
    */
-  fun findFirst(predicate: Predicate<T>): Provider<T>
+  fun findFirst(predicate: Bson): Provider<T>
 
   /**
    * Add / Update object
    */
-  fun put(@BindBean target: T): BooleanProvider
+  fun put(target: T): BooleanProvider
 
   /**
    * Remove object by [ID]
    */
-  fun remove(id: ID): BooleanProvider
+  fun remove(id: Id<T>): BooleanProvider
 
   /**
    * Remove object by [filtering][predicate]
    */
-  fun removeIf(predicate: Predicate<T>): NumberProvider
+  fun removeIf(predicate: Bson): NumberProvider
 
   /**
    * List all results
@@ -70,21 +70,29 @@ interface IDao<T : IdObject<ID>, ID> {
   fun listAll(): IterableProvider<T>
 }
 
-/**
- * ID Object interface
- */
-interface IdObject<ID> {
-  val id: ID
+interface IdObject<T : IdObject<T>> {
+  @get:JsonAlias("_id") val id: Id<T>
 }
 
 /**
  * Extension helps to configure your database
  */
 class DataStoreExtension {
-  var driver: Class<out Driver> by LateInit { SQLException("No driver has been defined") }
   var address: String by LateInit { IllegalArgumentException("No address has been defined") }
-  var port: Int = -1
-  var username: String by LateInit { SQLException("No username has been defined") }
-  var password: String by LateInit { SQLException("No password has been defined") }
-  var database: String by LateInit { SQLException("No database has been defined") }
+  var port: Int = 27017
+  var username: String? = null
+  var password: String? = null
+  var database: String by LateInit { IllegalArgumentException("No database has been defined") }
+
+  val connectionString
+    get() = buildString {
+      append("mongodb://")
+      if (username != null && password != null) {
+        append("${username}:${password}@")
+      }
+      append(address)
+      if (port != 27017) {
+        append(":${port}")
+      }
+    }
 }
